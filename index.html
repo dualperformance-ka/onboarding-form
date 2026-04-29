@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dual Performance — Athlete Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.2);
+    --text: #f5f5f3;
+    --text-muted: #999;
+    --text-dim: #555;
+    --accent: #ffffff;
+    --red: #b91c1c;
+    --mono: 'DM Mono', monospace;
+    --display: 'Barlow Condensed', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0a0a0a;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-mark svg { width: 36px; height: 36px; }
+  .logo {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+  .logo span { color: #444; }
+  .header-tag {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid rgba(185,28,28,0.3);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 24px 48px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: var(--display);
+    font-size: 56px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: #f5f5f3;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+  }
+  .progress-bar-bg {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* FORM */
+  .form-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .step { display: none; }
+  .step.active { display: block; animation: fadeUp 0.28s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STEP ELEMENTS */
+  .step-section {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+  .step-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .step-question {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    color: #f5f5f3;
+  }
+  .step-hint {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* INPUTS */
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  input[type="number"]:focus,
+  textarea:focus { border-color: var(--border-strong); }
+  input[type="date"] { color-scheme: dark; }
+  input::placeholder, textarea::placeholder { color: var(--text-dim); }
+  textarea { resize: vertical; min-height: 100px; }
+  .other-input {
+    background: var(--surface);
+    border: 1px solid var(--red);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    width: 100%;
+    outline: none;
+    margin-top: 8px;
+  }
+
+  /* CHOICES */
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .choice:hover { border-color: var(--border-strong); }
+  .choice.selected {
+    border-color: var(--red);
+    background: rgba(185,28,28,0.08);
+  }
+  .choice-key {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    min-width: 18px;
+    text-transform: uppercase;
+  }
+  .choice.selected .choice-key { color: var(--red); }
+  .choice-label {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* SCALE */
+  .scale-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .scale-item {
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .scale-item .scale-num {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .scale-item.selected .scale-num { color: var(--red); }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    max-width: 616px;
+  }
+
+  /* YES/NO */
+  .yn-wrap { display: flex; gap: 12px; }
+  .yn-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 22px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .yn-btn:hover { border-color: var(--border-strong); }
+  .yn-btn.selected { border-color: var(--red); background: rgba(185,28,28,0.08); }
+  .yn-btn .choice-label {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* NAV */
+  .step-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    align-items: center;
+  }
+  .btn-next {
+    background: #ffffff;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    padding: 13px 28px;
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-next:hover { background: #e5e5e5; transform: translateY(-1px); }
+  .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-back {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 13px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-back:hover { border-color: var(--border-strong); color: var(--text-muted); }
+  .btn-skip {
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    padding: 13px 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: auto;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .btn-skip:hover { color: var(--text-muted); }
+  .enter-hint {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .error-msg {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 32px;
+  }
+
+  /* WELCOME */
+  .welcome-screen {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  .welcome-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 36px;
+    margin-bottom: 24px;
+  }
+  .welcome-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .welcome-card p:last-child { margin-bottom: 0; }
+  .welcome-card strong { color: var(--text); }
+  .welcome-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .welcome-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .welcome-meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .btn-start {
+    width: 100%;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 16px;
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-start:hover { background: #991b1b; transform: translateY(-1px); }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    text-align: center;
+  }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+  }
+  .success-icon svg { width: 32px; height: 32px; }
+  .success-title {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  .success-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto 36px;
+  }
+  .success-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--border-strong);
+    margin: 0 auto 36px;
+  }
+  .success-book-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .success-book-heading {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .success-book-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 400px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .btn-book {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 32px;
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-book:hover { background: #991b1b; transform: translateY(-1px); }
+
+  /* CONSOLIDATED FIELD GROUPS */
+  .field-group { margin-bottom: 20px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .sub-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .sub-label span { color: var(--red); margin-left: 2px; }
+  .sub-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px 32px; }
+    .hero-title { font-size: 40px; }
+    .step-question { font-size: 26px; }
+    .form-wrap, .welcome-screen { padding: 0 20px 80px; }
+    .welcome-card { padding: 24px; }
+    .scale-item { width: 46px; height: 46px; }
+    .yn-wrap { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Replace with actual DP logo SVG or use <img src="logo.png"> -->
+      <text x="2" y="27" font-family="Barlow Condensed, sans-serif" font-size="28" font-weight="800" fill="white">DP</text>
+    </svg>
+  </div>
+  <div class="logo">Dual <span>Performance</span></div>
+  <div class="header-tag">Onboarding</div>
+</header>
+
+<!-- WELCOME -->
+<div id="welcomeSection">
+  <div class="hero">
+    <div class="hero-eyebrow">Athlete Onboarding Form</div>
+    <div class="hero-title">Let's build your program.</div>
+    <div class="hero-sub">This takes around 10 minutes. Your answers let us build every week of your 12-week program specifically around you. There are no wrong answers — just be honest.</div>
+  </div>
+  <div class="welcome-screen">
+    <div class="welcome-card">
+      <p><strong>What happens after you complete this?</strong></p>
+      <p>We'll review everything you've shared and have your first week of training and nutrition ready before your program starts.</p>
+      <p>Every answer matters. The more specific you are, the more precisely we can build around your schedule, your body, and your mindset — not a template.</p>
+      <p>If we need anything else, we'll reach out via Discord.</p>
+      <div class="welcome-meta">
+        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>34 Questions</div>
+        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>~10 Minutes</div>
+        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>No Wrong Answers</div>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startForm()">Start Onboarding →</button>
+  </div>
+</div>
+
+<!-- FORM -->
+<div id="formSection" style="display:none;">
+  <div class="progress-wrap">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Question 1 of 38</div>
+  </div>
+  <div class="form-wrap">
+    <div class="step active" id="currentStep"></div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+  <div class="success-title">You're all set.</div>
+  <div class="success-sub">We'll review everything you've shared and have your first week ready before your program starts. Welcome to Dual Performance.</div>
+  <div class="success-divider"></div>
+  <div class="success-book-label">Optional next step</div>
+  <div class="success-book-heading">Lock in a call time</div>
+  <div class="success-book-sub">While we build your program, go ahead and secure your check-in slot. Spots are limited.</div>
+  <a class="btn-book" href="https://calendly.com/dualperformanceka/45min" target="_blank" rel="noopener">Book Your Call →</a>
+</div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────────────
+const WEBHOOK = 'YOUR_WEBHOOK_URL'; // Replace with your Make.com or Zapier webhook
+
+// ── QUESTION DATA ──────────────────────────────────────────────────────
+// Types: text | long | date | choice | multi | scale | yn
+//        dual_text   — two labeled text inputs on one screen
+//        choice_scale — choice group + scale on one screen
+//        dual_choice  — two choice groups on one screen
+const QUESTIONS = [
+
+  // ── ABOUT YOU ──────────────────────────────────────────────────────
+  {
+    id:1, section:'About You',
+    q:"What's your name?",
+    type:'dual_text',
+    fields:[
+      { id:1, label:'Full name', placeholder:'First and last name', req:true },
+      { id:2, label:'What should we call you?', placeholder:'Preferred name', req:true }
+    ]
+  },
+  { id:3, section:'About You', q:'What is your date of birth?', hint:null, type:'date', req:true },
+  { id:4, section:'About You', q:'What is your biological sex?', hint:null, type:'choice', ops:['Male','Female','Prefer not to say'], req:true },
+  {
+    id:5, section:'About You',
+    q:"How do we reach you?",
+    hint:"Discord is our primary channel. WhatsApp is a backup — only fill in if you'd like it.",
+    type:'dual_text',
+    fields:[
+      { id:5, label:'Discord username', placeholder:'e.g. karl#1234', req:true },
+      { id:'5w', label:'WhatsApp number (optional)', placeholder:'e.g. +44 7700 900000', req:false }
+    ]
+  },
+
+  // ── YOUR BODY ──────────────────────────────────────────────────────
+  {
+    id:6, section:'Your Body',
+    q:'Height and weight',
+    hint:'Include your units.',
+    type:'dual_text',
+    fields:[
+      { id:6, label:'Height', placeholder:'e.g. 178cm or 5ft 10in', req:true },
+      { id:7, label:'Weight', placeholder:'e.g. 82kg or 180lbs', req:true }
+    ]
+  },
+
+  // ── YOUR GOALS ─────────────────────────────────────────────────────
+  { id:8, section:'Your Goals', q:'What is your primary goal for this 12 weeks?', hint:null, type:'choice', ops:['Lose body fat','Build muscle','Body recomposition','Improve performance','General health and fitness','Other'], req:true },
+  { id:9, section:'Your Goals', q:'In your own words, what does success look like at the end of week 12?', hint:'Be specific. This helps us coach you, not just train you.', type:'long', req:true },
+  { id:10, section:'Your Goals', q:"Why now? What's made you decide to commit at this point in your life?", hint:"There's no right answer — we want to understand your real reason.", type:'long', req:true },
+  { id:11, section:'Your Goals', q:'Have you tried to reach this goal before? If so, what held you back?', hint:"Optional — helps us anticipate roadblocks before they happen. Write 'n/a' to skip.", type:'long', req:false },
+
+  // ── MINDSET ────────────────────────────────────────────────────────
+  { id:12, section:'Mindset', q:'How committed are you to completing this full 12-week program?', hint:'1 = not sure yet   ·   10 = absolutely non-negotiable', type:'scale', req:true },
+  { id:13, section:'Mindset', q:'How would you describe your relationship with training right now?', hint:null, type:'choice', ops:['I love it and thrive on structure','I enjoy it but struggle to stay consistent','I find it hard to motivate myself most of the time',"I've never had a consistent routine"], req:true },
+  { id:14, section:'Mindset', q:'When training gets hard or uncomfortable, what does your inner voice usually say?', hint:null, type:'choice', ops:['Push through — this is where the work happens',"I'll take it easier today and make up for it",'I usually stop or cut the session short','I talk myself through it, but it takes a lot of effort'], req:true },
+  { id:15, section:'Mindset', q:'How do you typically respond when you miss a session or have a bad week?', hint:null, type:'choice', ops:['I get straight back on it — no drama','I beat myself up and it spirals','I take a few days off and restart',"It depends — inconsistent with how I handle it"], req:true },
+  { id:16, section:'Mindset', q:'Rate your self-discipline when it comes to training and nutrition right now.', hint:'1 = I struggle to follow through   ·   10 = I execute regardless of how I feel', type:'scale', req:true },
+  { id:17, section:'Mindset', q:"What's your biggest fear or concern coming into this program?", hint:'Understanding this helps us coach the mental side, not just the physical.', type:'long', req:true },
+  { id:18, section:'Mindset', q:'What does a win look like for you on a hard day?', hint:"Optional. E.g. showing up anyway, hitting a minimum session, eating well despite stress.", type:'long', req:false },
+
+  // ── TRAINING ───────────────────────────────────────────────────────
+  { id:19, section:'Training', q:'How many days per week can you realistically train?', hint:'Total sessions — we\'ll split them across strength and running.', type:'choice', ops:['2 days','3 days','4 days','5 days','6 days'], req:true },
+  {
+    id:20, section:'Training',
+    q:'How would you like to split those days between strength and running?',
+    hint:'This shapes the whole program structure — pick the closest fit.',
+    type:'choice',
+    ops:[
+      'Prioritise strength — minimal running (e.g. 4 strength / 1 run)',
+      'Mostly strength with regular running (e.g. 3 strength / 2 run)',
+      'Even split — equal strength and running (e.g. 3 / 3)',
+      'Mostly running with some strength (e.g. 2 strength / 3 run)',
+      'Prioritise running — minimal strength (e.g. 1 strength / 4 run)',
+      'Let the program decide based on my goals'
+    ],
+    req:true
+  },
+  { id:21, section:'Training', q:'How long do you have available per session?', hint:null, type:'choice', ops:['Under 45 min','45 to 60 min','60 to 75 min','75 to 90 min','90 min or more'], req:true },
+  { id:22, section:'Training', q:'What time of day do you prefer to train?', hint:null, type:'choice', ops:['Early morning (5–8am)','Morning (8–11am)','Midday','Afternoon (3–6pm)','Evening (6pm+)','No preference','It varies'], req:true },
+  { id:23, section:'Training', q:'Where will you be training?', hint:null, type:'choice', ops:['Commercial gym','Home gym with full equipment','Home gym with minimal equipment','Mix of both'], req:true },
+  { id:24, section:'Training', q:'How would you describe your training experience?', hint:null, type:'choice', ops:['Beginner (0 to 1 year)','Intermediate (1 to 3 years)','Advanced (3 or more years)'], req:true },
+  { id:25, section:'Training', q:'Have you followed a structured program or worked with a coach before?', hint:null, type:'choice', ops:['No, this is my first time','Yes, a self-led structured program',"Yes, I've had a coach before",'Yes, both'], req:true },
+  {
+    id:26, section:'Training',
+    q:'A few more training details',
+    hint:null,
+    type:'dual_text',
+    fields:[
+      { id:26, label:"Any exercises or equipment to avoid?", placeholder:"e.g. no barbell squats. Write 'none' if not applicable.", req:false },
+      { id:'26b', label:'Any other sports or physical activity outside the gym?', placeholder:"e.g. football, running, cycling. Write 'none' if not applicable.", req:false }
+    ]
+  },
+
+  // ── HEALTH & RECOVERY ──────────────────────────────────────────────
+  { id:27, section:'Health & Recovery', q:'Do you have any current injuries, chronic pain, or physical limitations we need to know about?', hint:null, type:'yn', req:true },
+  { id:28, section:'Health & Recovery', q:'Please describe your injury or limitation briefly.', hint:'Location, how long it has been there, what makes it worse.', type:'long', req:true, showIf:{ id:27, val:'Yes' } },
+  { id:29, section:'Health & Recovery', q:'Are you currently taking any medication that could affect your training or nutrition?', hint:null, type:'choice', ops:['No','Yes','Prefer not to say'], req:true },
+  {
+    id:30, section:'Health & Recovery',
+    q:"How's your sleep?",
+    hint:null,
+    type:'choice_scale',
+    fields:[
+      { id:30, label:'Hours per night', type:'choice', ops:['Less than 5 hrs','5–6 hrs','6–7 hrs','7–8 hrs','8+ hrs'], req:true },
+      { id:31, label:'Quality (1–10)', hint:'1 = terrible   ·   10 = excellent', type:'scale', req:true }
+    ]
+  },
+  { id:32, section:'Health & Recovery', q:'How would you describe your average daily stress levels?', hint:'1 = very calm   ·   10 = extremely stressed most of the time', type:'scale', req:true },
+  { id:33, section:'Health & Recovery', q:'How physically demanding is your job or daily life outside the gym?', hint:null, type:'choice', ops:['Mostly sedentary (desk job)','Light activity','Moderately active','Very physically demanding'], req:true },
+
+  // ── NUTRITION ──────────────────────────────────────────────────────
+  { id:34, section:'Nutrition', q:'Do you follow any specific diet or have any food allergies or intolerances?', hint:'Select all that apply.', type:'multi', ops:['None','Vegetarian','Vegan','Gluten-free','Dairy-free','Halal','Other (please specify)'], req:true },
+  { id:35, section:'Nutrition', q:'How would you describe your current eating habits?', hint:null, type:'choice', ops:['Very inconsistent','Fairly inconsistent','Fairly consistent','Very consistent'], req:true },
+  {
+    id:36, section:'Nutrition',
+    q:'Nutrition habits',
+    hint:null,
+    type:'dual_choice',
+    fields:[
+      { id:36, label:'Do you currently track your calories or macros?', ops:['Yes, consistently','Sometimes',"No, but I'm open to it","No, and I'd prefer not to"], req:true },
+      { id:37, label:'How many meals do you typically eat per day?', ops:['1–2','3','4','5+','It varies a lot'], req:true }
+    ]
+  },
+
+  // ── ANYTHING ELSE ──────────────────────────────────────────────────
+  { id:38, section:'Anything Else', q:'Is there anything else you want us to know before we build your program?', hint:"Optional — this is your chance to share anything that didn't come up above.", type:'long', req:false }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let answers = {};
+let visibleQ = [];
+let currentIdx = 0;
+
+// ── VISIBLE QUESTION LIST ─────────────────────────────────────────────
+function buildVisible() {
+  visibleQ = QUESTIONS.filter(q => {
+    if (!q.showIf) return true;
+    return answers[q.showIf.id] === q.showIf.val;
+  });
+}
+
+// ── START ──────────────────────────────────────────────────────────────
+function startForm() {
+  document.getElementById('welcomeSection').style.display = 'none';
+  document.getElementById('formSection').style.display = 'block';
+  buildVisible();
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────
+function renderQuestion() {
+  buildVisible();
+  const q = visibleQ[currentIdx];
+  if (!q) return;
+
+  const total = visibleQ.length;
+  const num = currentIdx + 1;
+  const pct = (num / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Question ${num} of ${total}`;
+
+  const keys = 'ABCDEFGHIJKLMNOP'.split('');
+  let inner = `
+    <div class="step-section">${q.section}</div>
+    <div class="step-number">${String(num).padStart(2,'0')} / ${String(total).padStart(2,'0')}</div>
+    <div class="step-question">${q.q}</div>
+    ${q.hint ? `<div class="step-hint">${q.hint}</div>` : '<div style="margin-bottom:28px;"></div>'}
+    <div id="qInputArea">`;
+
+  if (q.type === 'text') {
+    const val = answers[q.id] || '';
+    inner += `<input type="text" id="qInput" value="${escHtml(val)}" placeholder="Type your answer here..." autocomplete="off" />`;
+  } else if (q.type === 'date') {
+    const val = answers[q.id] || '';
+    inner += `<input type="date" id="qInput" value="${escHtml(val)}" />`;
+  } else if (q.type === 'long') {
+    const val = answers[q.id] || '';
+    inner += `<textarea id="qInput" placeholder="Type your answer here...">${escHtml(val)}</textarea>`;
+  } else if (q.type === 'choice') {
+    inner += `<div class="choices" id="choiceGroup">`;
+    q.ops.forEach((op, i) => {
+      const sel = answers[q.id] === op ? ' selected' : '';
+      inner += `<div class="choice${sel}" onclick="pickChoice(this,'${escJs(op)}')"><span class="choice-key">${keys[i]}</span><span class="choice-label">${escHtml(op)}</span></div>`;
+    });
+    inner += `</div>`;
+  } else if (q.type === 'multi') {
+    const selArr = answers[q.id] || [];
+    inner += `<div class="choices" id="choiceGroup">`;
+    q.ops.forEach((op, i) => {
+      const sel = selArr.includes(op) ? ' selected' : '';
+      inner += `<div class="choice${sel}" onclick="pickMulti(this,'${escJs(op)}',${q.id})"><span class="choice-key">${keys[i]}</span><span class="choice-label">${escHtml(op)}</span></div>`;
+    });
+    inner += `</div>`;
+  } else if (q.type === 'scale') {
+    const selVal = answers[q.id];
+    inner += `<div class="scale-wrap">`;
+    for (let n = 1; n <= 10; n++) {
+      const sel = selVal === n ? ' selected' : '';
+      inner += `<div class="choice scale-item${sel}" onclick="pickScale(this,${n})"><span class="scale-num">${n}</span></div>`;
+    }
+    inner += `</div>`;
+    inner += `<div class="scale-labels"><span>← Low</span><span>High →</span></div>`;
+  } else if (q.type === 'yn') {
+    const selVal = answers[q.id];
+    const ySel = selVal === 'Yes' ? ' selected' : '';
+    const nSel = selVal === 'No' ? ' selected' : '';
+    inner += `
+      <div class="yn-wrap">
+        <div class="yn-btn${ySel}" onclick="pickYN(this,'Yes')"><span class="choice-label">Yes</span></div>
+        <div class="yn-btn${nSel}" onclick="pickYN(this,'No')"><span class="choice-label">No</span></div>
+      </div>`;
+  }
+
+  inner += `</div>`;
+  inner += `<div class="error-msg" id="errMsg">Please provide an answer to continue.</div>`;
+  inner += `<div class="step-nav">`;
+  if (currentIdx > 0) {
+    inner += `<button class="btn-back" onclick="goBack()">← Back</button>`;
+  }
+  if (currentIdx < visibleQ.length - 1) {
+    inner += `<button class="btn-next" id="btnNext" onclick="goNext()">Next →</button>`;
+    if (!q.req) {
+      inner += `<button class="btn-skip" onclick="skipQ()">Skip</button>`;
+    }
+  } else {
+    inner += `<button class="btn-next" id="btnNext" onclick="submitForm()">Submit →</button>`;
+  }
+  inner += `</div>`;
+
+  const container = document.getElementById('currentStep');
+  container.className = 'step active';
+  container.innerHTML = inner;
+
+  // Focus text inputs
+  if (['text','date','long'].includes(q.type)) {
+    setTimeout(() => {
+      const el = document.getElementById('qInput');
+      if (el) el.focus();
+    }, 100);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── INTERACTIONS ──────────────────────────────────────────────────────
+function pickChoice(el, val) {
+  document.querySelectorAll('#choiceGroup .choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[visibleQ[currentIdx].id] = val;
+  clearErr();
+  setTimeout(goNext, 220);
+}
+
+function pickMulti(el, val, qid) {
+  el.classList.toggle('selected');
+  let arr = answers[qid] || [];
+  if (el.classList.contains('selected')) {
+    if (!arr.includes(val)) arr = [...arr, val];
+  } else {
+    arr = arr.filter(x => x !== val);
+  }
+  answers[qid] = arr;
+  clearErr();
+}
+
+function pickScale(el, val) {
+  document.querySelectorAll('.scale-item').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[visibleQ[currentIdx].id] = val;
+  clearErr();
+  setTimeout(goNext, 220);
+}
+
+function pickYN(el, val) {
+  document.querySelectorAll('.yn-btn').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[visibleQ[currentIdx].id] = val;
+  clearErr();
+  // Rebuild visible after yes/no (Q27 affects Q28)
+  buildVisible();
+  setTimeout(goNext, 220);
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────
+function getInputVal() {
+  const el = document.getElementById('qInput');
+  return el ? el.value.trim() : null;
+}
+
+function validate() {
+  const q = visibleQ[currentIdx];
+  if (!q.req) return true;
+
+  if (['text','long','date'].includes(q.type)) {
+    const val = getInputVal();
+    if (!val) return false;
+    answers[q.id] = val;
+    return true;
+  }
+  if (q.type === 'choice' || q.type === 'yn') {
+    return !!answers[q.id];
+  }
+  if (q.type === 'multi') {
+    return !!(answers[q.id] && answers[q.id].length > 0);
+  }
+  if (q.type === 'scale') {
+    return answers[q.id] !== undefined;
+  }
+  return true;
+}
+
+function saveTextInput() {
+  const q = visibleQ[currentIdx];
+  if (['text','long','date'].includes(q.type)) {
+    const el = document.getElementById('qInput');
+    if (el) answers[q.id] = el.value.trim();
+  }
+}
+
+function goNext() {
+  saveTextInput();
+  if (!validate()) {
+    document.getElementById('errMsg').style.display = 'block';
+    return;
+  }
+  clearErr();
+  buildVisible();
+  if (currentIdx < visibleQ.length - 1) {
+    currentIdx++;
+    renderQuestion();
+  }
+}
+
+function goBack() {
+  if (currentIdx > 0) {
+    saveTextInput();
+    currentIdx--;
+    buildVisible();
+    renderQuestion();
+  }
+}
+
+function skipQ() {
+  clearErr();
+  buildVisible();
+  if (currentIdx < visibleQ.length - 1) {
+    currentIdx++;
+    renderQuestion();
+  }
+}
+
+function clearErr() {
+  const e = document.getElementById('errMsg');
+  if (e) e.style.display = 'none';
+}
+
+// ── KEYBOARD ──────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('formSection').style.display === 'none') return;
+  const q = visibleQ[currentIdx];
+  if (!q) return;
+  if (e.key === 'Enter' && !['long','multi'].includes(q.type)) {
+    e.preventDefault();
+    goNext();
+  }
+});
+
+// ── SUBMIT ────────────────────────────────────────────────────────────
+async function submitForm() {
+  saveTextInput();
+  if (!validate()) {
+    document.getElementById('errMsg').style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('btnNext');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  // Build payload from all answers
+  const payload = {};
+  QUESTIONS.forEach(q => {
+    const val = answers[q.id];
+    if (val !== undefined && val !== null && val !== '') {
+      const key = `q${q.id}_${q.section.replace(/[^a-z]/gi,'_').toLowerCase()}`;
+      payload[key] = Array.isArray(val) ? val.join(', ') : val;
+    }
+  });
+
+  try {
+    if (WEBHOOK && WEBHOOK !== 'YOUR_WEBHOOK_URL') {
+      await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+  } catch(err) {
+    console.error('Webhook error:', err);
+  }
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('successScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escJs(s) {
+  return String(s || '').replace(/'/g,"\\'");
+}
+</script>
+</body>
+</html>
