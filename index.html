@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dual Performance — Athlete Onboarding</title>
+<title>Dual Performance - Athlete Onboarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -543,13 +543,13 @@
   <div class="hero">
     <div class="hero-eyebrow">Athlete Onboarding Form</div>
     <div class="hero-title">Let's build your program.</div>
-    <div class="hero-sub">This takes around 10 minutes. Your answers let us build every week of your 12-week program specifically around you. There are no wrong answers — just be honest.</div>
+    <div class="hero-sub">This takes around 10 minutes. Your answers let us build every week of your 12-week program specifically around you. There are no wrong answers - just be honest.</div>
   </div>
   <div class="welcome-screen">
     <div class="welcome-card">
       <p><strong>What happens after you complete this?</strong></p>
       <p>We'll review everything you've shared and have your first week of training and nutrition ready before your program starts.</p>
-      <p>Every answer matters. The more specific you are, the more precisely we can build around your schedule, your body, and your mindset — not a template.</p>
+      <p>Every answer matters. The more specific you are, the more precisely we can build around your schedule, your body, and your mindset - not a template.</p>
       <p>If we need anything else, we'll reach out via Discord.</p>
       <div class="welcome-meta">
         <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>34 Questions</div>
@@ -593,12 +593,13 @@
 <script>
 // ── CONFIG ─────────────────────────────────────────────────────────────
 const WEBHOOK = 'https://hook.eu1.make.com/hbswo1j1qjgkr6cehaoi8amomg9crm23';
+const DISCORD_WEBHOOK = ''; // Paste your Discord webhook URL here
 
 // ── QUESTION DATA ──────────────────────────────────────────────────────
 // Types: text | long | date | choice | multi | scale | yn
-//        dual_text   — two labeled text inputs on one screen
-//        choice_scale — choice group + scale on one screen
-//        dual_choice  — two choice groups on one screen
+//        dual_text   - two labeled text inputs on one screen
+//        choice_scale - choice group + scale on one screen
+//        dual_choice  - two choice groups on one screen
 const QUESTIONS = [
 
   // ── ABOUT YOU ──────────────────────────────────────────────────────
@@ -615,7 +616,7 @@ const QUESTIONS = [
   {
     id:5, section:'About You',
     q:"How do we reach you?",
-    hint:"Discord is our primary channel. WhatsApp is a backup — only fill in if you'd like it.",
+    hint:"Discord is our primary channel. WhatsApp is a backup - only fill in if you'd like it.",
     type:'dual_text',
     fields:[
       { id:5, label:'Discord username', placeholder:'e.g. karl#1234', req:true },
@@ -638,37 +639,37 @@ const QUESTIONS = [
   // ── YOUR GOALS ─────────────────────────────────────────────────────
   { id:8, section:'Your Goals', q:'What is your primary goal for this 12 weeks?', hint:null, type:'choice', ops:['Lose body fat','Build muscle','Body recomposition','Improve performance','General health and fitness','Other'], req:true },
   { id:9, section:'Your Goals', q:'In your own words, what does success look like at the end of week 12?', hint:'Be specific. This helps us coach you, not just train you.', type:'long', req:true },
-  { id:10, section:'Your Goals', q:"Why now? What's made you decide to commit at this point in your life?", hint:"There's no right answer — we want to understand your real reason.", type:'long', req:true },
-  { id:11, section:'Your Goals', q:'Have you tried to reach this goal before? If so, what held you back?', hint:"Optional — helps us anticipate roadblocks before they happen. Write 'n/a' to skip.", type:'long', req:false },
+  { id:10, section:'Your Goals', q:"Why now? What's made you decide to commit at this point in your life?", hint:"There's no right answer - we want to understand your real reason.", type:'long', req:true },
+  { id:11, section:'Your Goals', q:'Have you tried to reach this goal before? If so, what held you back?', hint:"Optional - helps us anticipate roadblocks before they happen. Write 'n/a' to skip.", type:'long', req:false },
 
   // ── MINDSET ────────────────────────────────────────────────────────
   { id:12, section:'Mindset', q:'How committed are you to completing this full 12-week program?', hint:'1 = not sure yet   ·   10 = absolutely non-negotiable', type:'scale', req:true },
   { id:13, section:'Mindset', q:'How would you describe your relationship with training right now?', hint:null, type:'choice', ops:['I love it and thrive on structure','I enjoy it but struggle to stay consistent','I find it hard to motivate myself most of the time',"I've never had a consistent routine"], req:true },
-  { id:14, section:'Mindset', q:'When training gets hard or uncomfortable, what does your inner voice usually say?', hint:null, type:'choice', ops:['Push through — this is where the work happens',"I'll take it easier today and make up for it",'I usually stop or cut the session short','I talk myself through it, but it takes a lot of effort'], req:true },
-  { id:15, section:'Mindset', q:'How do you typically respond when you miss a session or have a bad week?', hint:null, type:'choice', ops:['I get straight back on it — no drama','I beat myself up and it spirals','I take a few days off and restart',"It depends — inconsistent with how I handle it"], req:true },
+  { id:14, section:'Mindset', q:'When training gets hard or uncomfortable, what does your inner voice usually say?', hint:null, type:'choice', ops:['Push through - this is where the work happens',"I'll take it easier today and make up for it",'I usually stop or cut the session short','I talk myself through it, but it takes a lot of effort'], req:true },
+  { id:15, section:'Mindset', q:'How do you typically respond when you miss a session or have a bad week?', hint:null, type:'choice', ops:['I get straight back on it - no drama','I beat myself up and it spirals','I take a few days off and restart',"It depends - inconsistent with how I handle it"], req:true },
   { id:16, section:'Mindset', q:'Rate your self-discipline when it comes to training and nutrition right now.', hint:'1 = I struggle to follow through   ·   10 = I execute regardless of how I feel', type:'scale', req:true },
   { id:17, section:'Mindset', q:"What's your biggest fear or concern coming into this program?", hint:'Understanding this helps us coach the mental side, not just the physical.', type:'long', req:true },
   { id:18, section:'Mindset', q:'What does a win look like for you on a hard day?', hint:"Optional. E.g. showing up anyway, hitting a minimum session, eating well despite stress.", type:'long', req:false },
 
   // ── TRAINING ───────────────────────────────────────────────────────
-  { id:19, section:'Training', q:'How many days per week can you realistically train?', hint:'Total sessions — we\'ll split them across strength and running.', type:'choice', ops:['2 days','3 days','4 days','5 days','6 days'], req:true },
+  { id:19, section:'Training', q:'How many days per week can you realistically train?', hint:'Total sessions - we\'ll split them across strength and running.', type:'choice', ops:['2 days','3 days','4 days','5 days','6 days'], req:true },
   {
     id:20, section:'Training',
     q:'How would you like to split those days between strength and running?',
-    hint:'This shapes the whole program structure — pick the closest fit.',
+    hint:'This shapes the whole program structure - pick the closest fit.',
     type:'choice',
     ops:[
-      'Prioritise strength — minimal running (e.g. 4 strength / 1 run)',
+      'Prioritise strength - minimal running (e.g. 4 strength / 1 run)',
       'Mostly strength with regular running (e.g. 3 strength / 2 run)',
-      'Even split — equal strength and running (e.g. 3 / 3)',
+      'Even split - equal strength and running (e.g. 3 / 3)',
       'Mostly running with some strength (e.g. 2 strength / 3 run)',
-      'Prioritise running — minimal strength (e.g. 1 strength / 4 run)',
+      'Prioritise running - minimal strength (e.g. 1 strength / 4 run)',
       'Let the program decide based on my goals'
     ],
     req:true
   },
   { id:21, section:'Training', q:'How long do you have available per session?', hint:null, type:'choice', ops:['Under 45 min','45 to 60 min','60 to 75 min','75 to 90 min','90 min or more'], req:true },
-  { id:22, section:'Training', q:'What time of day do you prefer to train?', hint:null, type:'choice', ops:['Early morning (5–8am)','Morning (8–11am)','Midday','Afternoon (3–6pm)','Evening (6pm+)','No preference','It varies'], req:true },
+  { id:22, section:'Training', q:'What time of day do you prefer to train?', hint:null, type:'choice', ops:['Early morning (5-8am)','Morning (8-11am)','Midday','Afternoon (3-6pm)','Evening (6pm+)','No preference','It varies'], req:true },
   { id:23, section:'Training', q:'Where will you be training?', hint:null, type:'choice', ops:['Commercial gym','Home gym with full equipment','Home gym with minimal equipment','Mix of both'], req:true },
   { id:24, section:'Training', q:'How would you describe your training experience?', hint:null, type:'choice', ops:['Beginner (0 to 1 year)','Intermediate (1 to 3 years)','Advanced (3 or more years)'], req:true },
   { id:25, section:'Training', q:'Have you followed a structured program or worked with a coach before?', hint:null, type:'choice', ops:['No, this is my first time','Yes, a self-led structured program',"Yes, I've had a coach before",'Yes, both'], req:true },
@@ -693,8 +694,8 @@ const QUESTIONS = [
     hint:null,
     type:'choice_scale',
     fields:[
-      { id:30, label:'Hours per night', type:'choice', ops:['Less than 5 hrs','5–6 hrs','6–7 hrs','7–8 hrs','8+ hrs'], req:true },
-      { id:31, label:'Quality (1–10)', hint:'1 = terrible   ·   10 = excellent', type:'scale', req:true }
+      { id:30, label:'Hours per night', type:'choice', ops:['Less than 5 hrs','5-6 hrs','6-7 hrs','7-8 hrs','8+ hrs'], req:true },
+      { id:31, label:'Quality (1-10)', hint:'1 = terrible   ·   10 = excellent', type:'scale', req:true }
     ]
   },
   { id:32, section:'Health & Recovery', q:'How would you describe your average daily stress levels?', hint:'1 = very calm   ·   10 = extremely stressed most of the time', type:'scale', req:true },
@@ -710,12 +711,12 @@ const QUESTIONS = [
     type:'dual_choice',
     fields:[
       { id:36, label:'Do you currently track your calories or macros?', ops:['Yes, consistently','Sometimes',"No, but I'm open to it","No, and I'd prefer not to"], req:true },
-      { id:37, label:'How many meals do you typically eat per day?', ops:['1–2','3','4','5+','It varies a lot'], req:true }
+      { id:37, label:'How many meals do you typically eat per day?', ops:['1-2','3','4','5+','It varies a lot'], req:true }
     ]
   },
 
   // ── ANYTHING ELSE ──────────────────────────────────────────────────
-  { id:38, section:'Anything Else', q:'Is there anything else you want us to know before we build your program?', hint:"Optional — this is your chance to share anything that didn't come up above.", type:'long', req:false }
+  { id:38, section:'Anything Else', q:'Is there anything else you want us to know before we build your program?', hint:"Optional - this is your chance to share anything that didn't come up above.", type:'long', req:false }
 ];
 
 // ── STATE ──────────────────────────────────────────────────────────────
@@ -924,7 +925,7 @@ function pickYN(el, val) {
 }
 
 // ── MULTI-FIELD PICKERS ───────────────────────────────────────────────
-// Used by dual_text, choice_scale, dual_choice — stores to field-level ID, no auto-advance
+// Used by dual_text, choice_scale, dual_choice - stores to field-level ID, no auto-advance
 function pickChoiceField(el, val, fieldId) {
   const group = el.closest('.choices');
   if (group) group.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
@@ -1068,7 +1069,7 @@ async function submitForm() {
   const secSlug = s => s.replace(/[^a-z]/gi,'_').toLowerCase();
   QUESTIONS.forEach(q => {
     if (q.fields) {
-      // Composite question — collect each sub-field's answer
+      // Composite question - collect each sub-field's answer
       q.fields.forEach(f => {
         const val = answers[f.id];
         if (val !== undefined && val !== null && val !== '') {
@@ -1095,6 +1096,33 @@ async function submitForm() {
     }
   } catch(err) {
     console.error('Webhook error:', err);
+  }
+
+  // Discord notification
+  try {
+    if (DISCORD_WEBHOOK) {
+      const name = answers[1] || answers['1'] || 'New athlete';
+      const sport = answers[3] || answers['3'] || '';
+      const goal = answers[9] || answers['9'] || '';
+      const discordPayload = {
+        embeds: [
+          {
+            title: "Dual Performance",
+            description: `**New application received**\n\n**Athlete:** ${name}${sport ? `\n**Sport:** ${sport}` : ''}${goal ? `\n**Goal:** ${goal}` : ''}\n\n_Built for high-performing athletes. Run faster. Lift stronger. Stay consistent._`,
+            color: 16777215,
+            footer: { text: "Dual Performance" },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+      await fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(discordPayload)
+      });
+    }
+  } catch(err) {
+    console.error('Discord webhook error:', err);
   }
 
   document.getElementById('formSection').style.display = 'none';
