@@ -46,13 +46,13 @@
     z-index: 100;
   }
   .logo-mark {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .logo-mark svg { width: 36px; height: 36px; }
+  .logo-mark svg { width: 46px; height: 44px; }
   .logo {
     font-family: var(--display);
     font-size: 26px;
@@ -338,19 +338,6 @@
     transition: border-color 0.15s, color 0.15s;
   }
   .btn-back:hover { border-color: var(--border-strong); color: var(--text-muted); }
-  .btn-skip {
-    background: transparent;
-    color: var(--text-dim);
-    border: none;
-    padding: 13px 12px;
-    font-family: var(--mono);
-    font-size: 12px;
-    cursor: pointer;
-    margin-left: auto;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .btn-skip:hover { color: var(--text-muted); }
   .enter-hint {
     margin-left: auto;
     font-family: var(--mono);
@@ -545,48 +532,26 @@
 
 <header>
   <div class="logo-mark">
-    <!-- DP monogram — replace with <img src="logo.png" style="height:36px"> once you deploy -->
-    <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer white silhouette: D+P merged form -->
+    <svg viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer white silhouette — P+D merged form with angled top-left -->
       <path fill="white" d="
-        M 62,18
-        L 80,18
-        L 190,18
-        Q 262,18 262,82
-        Q 262,140 190,145
-        L 130,145
-        L 118,222
-        L 52,222
-        L 68,145
-        L 52,145
+        M 62,92 L 100,46 L 218,46
+        Q 278,46 278,128
+        Q 278,206 218,210
+        L 144,210 L 126,262 L 60,262
         Z
       "/>
-      <!-- P counter (hole in the P bowl) -->
+      <!-- P counter — inner bowl hole -->
       <path fill="var(--bg)" d="
-        M 136,44
-        L 186,44
-        Q 234,44 234,82
-        Q 234,118 186,118
-        L 120,118
-        Z
+        M 148,70 L 214,70
+        Q 252,70 252,126
+        Q 252,182 214,184
+        L 146,184 Z
       "/>
-      <!-- Diagonal slash separating D from P through the stem -->
+      <!-- Diagonal slash — D/P separator -->
       <path fill="var(--bg)" d="
-        M 62,18
-        L 115,18
-        L 78,145
-        L 52,145
-        Z
-      "/>
-      <!-- D counter: open left face of D below diagonal -->
-      <path fill="var(--bg)" d="
-        M 28,52
-        L 55,32
-        L 68,145
-        L 42,145
-        Q 10,128 10,95
-        Q 10,68 28,52
-        Z
+        M 100,46 L 160,46
+        L 132,210 L 78,210 Z
       "/>
     </svg>
   </div>
@@ -668,7 +633,6 @@ const QUESTIONS = [
     ]
   },
   { id:3, section:'About You', q:'What is your date of birth?', hint:null, type:'date', req:true },
-  { id:4, section:'About You', q:'What is your biological sex?', hint:null, type:'choice', ops:['Male','Female','Prefer not to say'], req:true },
   {
     id:5, section:'About You',
     q:"How do we reach you?",
@@ -916,9 +880,6 @@ function renderQuestion() {
   }
   if (currentIdx < visibleQ.length - 1) {
     inner += `<button class="btn-next" id="btnNext" onclick="goNext()">Next →</button>`;
-    if (!q.req) {
-      inner += `<button class="btn-skip" onclick="skipQ()">Skip</button>`;
-    }
   } else {
     inner += `<button class="btn-next" id="btnNext" onclick="submitForm()">Submit →</button>`;
   }
@@ -1080,15 +1041,6 @@ function goBack() {
     saveTextInput();
     currentIdx--;
     buildVisible();
-    renderQuestion();
-  }
-}
-
-function skipQ() {
-  clearErr();
-  buildVisible();
-  if (currentIdx < visibleQ.length - 1) {
-    currentIdx++;
     renderQuestion();
   }
 }
