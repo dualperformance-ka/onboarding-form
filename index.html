@@ -9,16 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #141414;
-    --surface2: #1e1e1e;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.2);
-    --text: #f5f5f3;
-    --text-muted: #999;
-    --text-dim: #555;
+    --bg: #18181b;
+    --surface: #27272a;
+    --surface2: #3f3f46;
+    --border: rgba(255,255,255,0.12);
+    --border-strong: rgba(255,255,255,0.32);
+    --text: #fafaf9;
+    --text-muted: #a8a29e;
+    --text-dim: #78716c;
     --accent: #ffffff;
-    --red: #b91c1c;
+    --red: #ef4444;
     --mono: 'DM Mono', monospace;
     --display: 'Barlow Condensed', sans-serif;
     --body: 'Barlow', sans-serif;
@@ -35,7 +35,7 @@
 
   /* HEADER */
   header {
-    background: #0a0a0a;
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
     padding: 16px 24px;
     display: flex;
@@ -312,7 +312,7 @@
   }
   .btn-next {
     background: #ffffff;
-    color: #0a0a0a;
+    color: #111111;
     border: none;
     border-radius: 6px;
     padding: 13px 28px;
@@ -545,9 +545,49 @@
 
 <header>
   <div class="logo-mark">
-    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Replace with actual DP logo SVG or use <img src="logo.png"> -->
-      <text x="2" y="27" font-family="Barlow Condensed, sans-serif" font-size="28" font-weight="800" fill="white">DP</text>
+    <!-- DP monogram — replace with <img src="logo.png" style="height:36px"> once you deploy -->
+    <svg viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer white silhouette: D+P merged form -->
+      <path fill="white" d="
+        M 62,18
+        L 80,18
+        L 190,18
+        Q 262,18 262,82
+        Q 262,140 190,145
+        L 130,145
+        L 118,222
+        L 52,222
+        L 68,145
+        L 52,145
+        Z
+      "/>
+      <!-- P counter (hole in the P bowl) -->
+      <path fill="var(--bg)" d="
+        M 136,44
+        L 186,44
+        Q 234,44 234,82
+        Q 234,118 186,118
+        L 120,118
+        Z
+      "/>
+      <!-- Diagonal slash separating D from P through the stem -->
+      <path fill="var(--bg)" d="
+        M 62,18
+        L 115,18
+        L 78,145
+        L 52,145
+        Z
+      "/>
+      <!-- D counter: open left face of D below diagonal -->
+      <path fill="var(--bg)" d="
+        M 28,52
+        L 55,32
+        L 68,145
+        L 42,145
+        Q 10,128 10,95
+        Q 10,68 28,52
+        Z
+      "/>
     </svg>
   </div>
   <div class="logo">Dual <span>Performance</span></div>
@@ -819,6 +859,53 @@ function renderQuestion() {
         <div class="yn-btn${ySel}" onclick="pickYN(this,'Yes')"><span class="choice-label">Yes</span></div>
         <div class="yn-btn${nSel}" onclick="pickYN(this,'No')"><span class="choice-label">No</span></div>
       </div>`;
+
+  } else if (q.type === 'dual_text') {
+    q.fields.forEach((f, fi) => {
+      const val = answers[f.id] || '';
+      inner += `<div class="field-group">
+        <div class="sub-label">${escHtml(f.label)}${f.req ? '<span> *</span>' : ''}</div>
+        <input type="text" class="dual-input" data-field-id="${f.id}" value="${escHtml(val)}" placeholder="${escHtml(f.placeholder || '')}" autocomplete="off" />
+      </div>`;
+      if (fi < q.fields.length - 1) inner += `<hr class="sub-divider">`;
+    });
+
+  } else if (q.type === 'choice_scale') {
+    const cf = q.fields[0];
+    const cfFid = typeof cf.id === 'string' ? `'${escJs(cf.id)}'` : cf.id;
+    inner += `<div class="field-group">
+      <div class="sub-label">${escHtml(cf.label)}${cf.req ? '<span> *</span>' : ''}</div>
+      <div class="choices" id="choiceGroup_${cf.id}">`;
+    cf.ops.forEach((op, i) => {
+      const sel = answers[cf.id] === op ? ' selected' : '';
+      inner += `<div class="choice${sel}" onclick="pickChoiceField(this,'${escJs(op)}',${cfFid})"><span class="choice-key">${keys[i]}</span><span class="choice-label">${escHtml(op)}</span></div>`;
+    });
+    inner += `</div></div><hr class="sub-divider">`;
+    const sf = q.fields[1];
+    const sfFid = typeof sf.id === 'string' ? `'${escJs(sf.id)}'` : sf.id;
+    inner += `<div class="field-group">
+      <div class="sub-label">${escHtml(sf.label)}${sf.req ? '<span> *</span>' : ''}</div>`;
+    if (sf.hint) inner += `<div class="step-hint" style="margin-top:0;margin-bottom:14px;">${sf.hint}</div>`;
+    inner += `<div class="scale-wrap" id="scaleGroup_${sf.id}">`;
+    for (let n = 1; n <= 10; n++) {
+      const sel = answers[sf.id] === n ? ' selected' : '';
+      inner += `<div class="choice scale-item${sel}" onclick="pickScaleField(this,${n},${sfFid})"><span class="scale-num">${n}</span></div>`;
+    }
+    inner += `</div><div class="scale-labels"><span>← Low</span><span>High →</span></div></div>`;
+
+  } else if (q.type === 'dual_choice') {
+    q.fields.forEach((f, fi) => {
+      const fFid = typeof f.id === 'string' ? `'${escJs(f.id)}'` : f.id;
+      inner += `<div class="field-group">
+        <div class="sub-label">${escHtml(f.label)}${f.req ? '<span> *</span>' : ''}</div>
+        <div class="choices" id="choiceGroup_${f.id}">`;
+      f.ops.forEach((op, i) => {
+        const sel = answers[f.id] === op ? ' selected' : '';
+        inner += `<div class="choice${sel}" onclick="pickChoiceField(this,'${escJs(op)}',${fFid})"><span class="choice-key">${keys[i]}</span><span class="choice-label">${escHtml(op)}</span></div>`;
+      });
+      inner += `</div></div>`;
+      if (fi < q.fields.length - 1) inner += `<hr class="sub-divider">`;
+    });
   }
 
   inner += `</div>`;
@@ -841,10 +928,15 @@ function renderQuestion() {
   container.className = 'step active';
   container.innerHTML = inner;
 
-  // Focus text inputs
+  // Focus first input
   if (['text','date','long'].includes(q.type)) {
     setTimeout(() => {
       const el = document.getElementById('qInput');
+      if (el) el.focus();
+    }, 100);
+  } else if (q.type === 'dual_text') {
+    setTimeout(() => {
+      const el = document.querySelector('.dual-input');
       if (el) el.focus();
     }, 100);
   }
@@ -891,6 +983,24 @@ function pickYN(el, val) {
   setTimeout(goNext, 220);
 }
 
+// ── MULTI-FIELD PICKERS ───────────────────────────────────────────────
+// Used by dual_text, choice_scale, dual_choice — stores to field-level ID, no auto-advance
+function pickChoiceField(el, val, fieldId) {
+  const group = el.closest('.choices');
+  if (group) group.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[fieldId] = val;
+  clearErr();
+}
+
+function pickScaleField(el, val, fieldId) {
+  const group = el.closest('.scale-wrap');
+  if (group) group.querySelectorAll('.scale-item').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[fieldId] = val;
+  clearErr();
+}
+
 // ── NAVIGATION ────────────────────────────────────────────────────────
 function getInputVal() {
   const el = document.getElementById('qInput');
@@ -899,6 +1009,24 @@ function getInputVal() {
 
 function validate() {
   const q = visibleQ[currentIdx];
+
+  // ── Composite types ──────────────────────────────────────────────
+  if (q.type === 'dual_text') {
+    // Save all fields first
+    document.querySelectorAll('.dual-input').forEach(inp => {
+      const raw = inp.dataset.fieldId;
+      const key = /^\d+$/.test(raw) ? Number(raw) : raw;
+      answers[key] = inp.value.trim();
+    });
+    // Check required fields
+    return q.fields.every(f => !f.req || (answers[f.id] !== undefined && answers[f.id] !== ''));
+  }
+
+  if (q.type === 'choice_scale' || q.type === 'dual_choice') {
+    return q.fields.every(f => !f.req || (answers[f.id] !== undefined && answers[f.id] !== null && answers[f.id] !== ''));
+  }
+
+  // ── Single-value types ───────────────────────────────────────────
   if (!q.req) return true;
 
   if (['text','long','date'].includes(q.type)) {
@@ -924,6 +1052,12 @@ function saveTextInput() {
   if (['text','long','date'].includes(q.type)) {
     const el = document.getElementById('qInput');
     if (el) answers[q.id] = el.value.trim();
+  } else if (q.type === 'dual_text') {
+    document.querySelectorAll('.dual-input').forEach(inp => {
+      const raw = inp.dataset.fieldId;
+      const key = /^\d+$/.test(raw) ? Number(raw) : raw;
+      answers[key] = inp.value.trim();
+    });
   }
 }
 
@@ -969,7 +1103,18 @@ document.addEventListener('keydown', e => {
   if (document.getElementById('formSection').style.display === 'none') return;
   const q = visibleQ[currentIdx];
   if (!q) return;
+  // long and multi: Enter adds newlines / is a normal interaction. All others: Enter advances.
   if (e.key === 'Enter' && !['long','multi'].includes(q.type)) {
+    // For dual_text, only advance if the active element isn't moving to another field
+    if (q.type === 'dual_text') {
+      const inputs = Array.from(document.querySelectorAll('.dual-input'));
+      const idx = inputs.indexOf(document.activeElement);
+      if (idx >= 0 && idx < inputs.length - 1) {
+        e.preventDefault();
+        inputs[idx + 1].focus(); // Tab to next field
+        return;
+      }
+    }
     e.preventDefault();
     goNext();
   }
@@ -989,11 +1134,23 @@ async function submitForm() {
 
   // Build payload from all answers
   const payload = {};
+  const secSlug = s => s.replace(/[^a-z]/gi,'_').toLowerCase();
   QUESTIONS.forEach(q => {
-    const val = answers[q.id];
-    if (val !== undefined && val !== null && val !== '') {
-      const key = `q${q.id}_${q.section.replace(/[^a-z]/gi,'_').toLowerCase()}`;
-      payload[key] = Array.isArray(val) ? val.join(', ') : val;
+    if (q.fields) {
+      // Composite question — collect each sub-field's answer
+      q.fields.forEach(f => {
+        const val = answers[f.id];
+        if (val !== undefined && val !== null && val !== '') {
+          const key = `q${String(f.id).replace(/[^a-z0-9]/gi,'_')}_${secSlug(q.section)}`;
+          payload[key] = Array.isArray(val) ? val.join(', ') : val;
+        }
+      });
+    } else {
+      const val = answers[q.id];
+      if (val !== undefined && val !== null && val !== '') {
+        const key = `q${q.id}_${secSlug(q.section)}`;
+        payload[key] = Array.isArray(val) ? val.join(', ') : val;
+      }
     }
   });
 
