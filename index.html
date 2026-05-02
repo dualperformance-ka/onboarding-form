@@ -405,6 +405,129 @@
     transition: background 0.15s, transform 0.1s;
   }
   .btn-start:hover { background: #991b1b; transform: translateY(-1px); }
+
+  /* BOOKING SCREEN */
+  .booking-screen {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  .booking-hero {
+    padding: 48px 0 32px;
+  }
+  .booking-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .booking-step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .booking-step-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .booking-title {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 14px;
+    color: #f5f5f3;
+  }
+  .booking-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .calendly-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .booking-confirm-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .booking-confirm-text p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+  .booking-confirm-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .btn-booked {
+    flex-shrink: 0;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-booked:hover { background: #991b1b; transform: translateY(-1px); }
+  .booking-back-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .booking-back-link:hover { color: var(--text-muted); }
+
   /* SUCCESS */
   .success-screen {
     display: none;
@@ -439,52 +562,37 @@
     max-width: 460px;
     margin: 0 auto 36px;
   }
-  .success-divider {
-    width: 40px;
-    height: 1px;
-    background: var(--border-strong);
-    margin: 0 auto 36px;
+  .success-checklist {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin: 0 auto;
   }
-  .success-book-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--red);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 12px;
-  }
-  .success-book-heading {
-    font-family: var(--display);
-    font-size: 26px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    margin-bottom: 10px;
-  }
-  .success-book-sub {
-    font-size: 14px;
+  .success-check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
     color: var(--text-muted);
-    max-width: 400px;
-    margin: 0 auto 28px;
-    line-height: 1.6;
   }
-  .btn-book {
-    display: inline-block;
-    background: var(--red);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 14px 32px;
-    font-family: var(--display);
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.15s, transform 0.1s;
+  .success-check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
-  .btn-book:hover { background: #991b1b; transform: translateY(-1px); }
+  .success-check-icon svg { width: 12px; height: 12px; }
+
   /* CONSOLIDATED FIELD GROUPS */
   .field-group { margin-bottom: 20px; }
   .field-group:last-child { margin-bottom: 0; }
@@ -505,56 +613,95 @@
   @media (max-width: 600px) {
     .hero { padding: 40px 20px 32px; }
     .hero-title { font-size: 40px; }
+    .booking-title { font-size: 34px; }
     .step-question { font-size: 26px; }
-    .form-wrap, .welcome-screen { padding: 0 20px 80px; }
+    .form-wrap, .welcome-screen, .booking-screen { padding: 0 20px 80px; }
     .welcome-card { padding: 24px; }
     .scale-item { width: 46px; height: 46px; }
     .yn-wrap { flex-direction: column; }
+    .booking-confirm-area { flex-direction: column; align-items: flex-start; }
+    .btn-booked { width: 100%; text-align: center; }
   }
 </style>
 </head>
 <body>
 <header>
   <div class="logo-mark">
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABgADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAEIBwkEBQYDAv/EAFAQAQABAwMBBAUGCwQIBQIHAAABAgMEBQYRBwgSITEiQVFh0hMUGFZxgQkWMkJSYnKCkZKVFSNjoSRDRIOTlKKxNlWjstEzhSU0NUZUdML/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AprAAAEyCAADkAAAAADkAAAAAAADkATAgBIgBJKADkAA5AAAAAAADkAAAAAAAAAA5AAAAAAAAAAAEiADk5ADk5AAAAAA5ADk5ADk5ADk5AAAAAAAAAAAAAAAA5AAAAAAAAAAAAAA5ADlKADk5ADkAAAAAAAAADk5AA5AEiAEiADk5AEiAAABMIASHJyAgAAAAAAAAAAADkADkADkAOTkAOQADkAOQAAAAADkAOTkAAAAAAAAAAAAAAAEwggEgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE8koAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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" alt="Dual Performance" style="height:44px;width:auto;mix-blend-mode:screen;" />
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABgADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAEIBwkEBQYDAv/EAFAQAQABAwMBBAUGCwQIBQIHAAABAgMEBQYRBwgSITEiQVFh0hMUGFZxgQkWMkJSYnKCkZKVFSNjoSRDRIOTlKKxNlWjstEzhSU0NUZUdML/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AprAAAEyCAADkAAAAADkAAAAAAADkATAgBIgBJKADkAA5AAAAAAADkAAAAAAAAAA5AAAAAAAAAAAEiADk5ADk5AAAAAA5ADk5ADk5ADk5AAAAAAAAAAAAAAAA5AAAAAAAAAAAAAA5ADlKADk5ADkAAAAAAAAADk5AA5AEiAEiADk5AEiAAABMIASHJyAgAAAAAAAAAAADkADkADkAOTkAOQADkAOQAAAAADkAOTkAAAAAAAAAAAAAAAEwggEgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE8koAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATBJBIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHveiOh7A3Lu2jQ9+a3qWh2cvu28PNx/k/kqLsz+Td70T3aZ8IiqPCJ8/Dxi2dHYr2HMczuncM/Z8j8IKHi+P0Kdhc+O6dyfxs/An6FWwfrPuT+Nn4AUNF8voVbB+s+5P42fgT9CrYH1m3J/NZ+AFDRfT6FXT/wCs25P5rPwE9irYH1m3J/NZ+AFDRfT6FXT76y7l/ns/A/M9irYHq3PuX+az8AKGi+X0Ktg/Wfcv81n4COxVsH17n3J/NZ+AFDRfT6FXT76y7l/ns/An6FWwPrNuT+az8AKGi+X0KtgfWfcv81n4EfQq2D9Z9yfxs/AChwvl9CnYP1o3L/NZ+A+hVsD6z7l/ms/AChovn9Crp/wDWbcs/vWfgJ7FewPVuXcn81n4AUMF8voVbB+s+5P5rPwJ+hX0/+s25P5rPwAoYL5T2Kdg+rdG5f5rPwPz9CnYf1p3J/wCj8AKHi+MdinYXr3TuT+Nn4Ex2Ktgevc+5J/es/AChovp9Cvp99Zdy/wA9n4ET2K+n/q3LuT+az8AKGi+kdivp969y7l/ns/An6FnT36x7l/4ln4AUKF9foV9PPrJub/iWfgfmexV0/wDVuXcv89n4AUMF8/oVdP8A6zbl/ms/AfQq6f8A1m3J/NZ+AFDBfP6FXT/6y7l/ms/Aj6FWwef/ABPuT+az8AKGi+cdirp/9Zty/wA1n4CexV0/+s25f5rPwAoYL5/Qq6f/AFm3L/NZ+BH0Ktg/Wfcn81n4AUNF8voVbA+s+5P5rPwInsVbC9W59yfxs/AChwvh9CnYf1p3J/Gz8CfoVbD+tG4/42fgBQ5PC8uf2Jtp1935jvPWrHH5XyuPauc/Zx3eHU5XYgx57/zbqFdp8fQi5pcT/Hi5AKXi2erdiTc1uKp0re2kZP6MZGLcs8/fE1PGa92Rur2n96cTF0jVKY8pxc+ImfuuRSCv499uPox1T2/NU6nsXXKLdPPNyzjTeo/mt96Hh8rFycW7NnKsXbFyPCaLlE01R90g+IAAnwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuj2Mu0J8vTh9N985v97ERZ0fUb1f5ceVOPcmfX6qKp8/yfPjmlyaZmmYmJ4n1A3KCpXY57RFWtfNenu/M/nUoiLelalfr8cmPVZuVT/rP0ap/K8p9LjvW1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHEOq17bW3tfsTZ1vQ9N1K3P5uVi0Xf/AHRLtgGDN59lbpFuGmuvE0jJ0HIqieLmm35pp59vcr71P3REMC9QOxju/TabmTs3XcHXbUeNOPkx81v+vwiZmaJ++aV7QGoremyt2bLz/mW6dv6hpN6ZmKfnNmaaLnH6Ff5Nce+mZdA3E6tpmnavgXdP1XAxc/DvRxcsZNqm5brj2TTVExKt/V/sibO3Bbv6hse/O29RmJqjGnm5h3KvZx+Vb5/VmYj9EFBR6HqFs7Wdibpydua/RjU52PxNcY+RRep4nynmmZ4+yeJj1xDz4IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEolJIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+rdddu5TcoqqpqpmJpqpniYmPXC+3ZB7Q1reOLi7F3llRRuSzR3MLLuT4ahRTHlM+q7ER+9xz58qDvvgZeTgZtjNwsi7j5OPcpu2btqqaa7ddM8xVEx5TE+sG44V67JXX6x1I02nbG579qzu3Et8xV4U06hbiPG5THlFcfnUx+1HhzEWFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHD1jU9O0bTb+p6tnY2DhY9E13sjIuRbt26fbNU+EKldcu2Dj4/zjRel2PTkXfGirWcq36FM+2aban8r3VV+H6s+YLM9RN/7R6f6POqbs1vG06zxPyVuqrm7emPVboj0qp+yPt4Uo66drHc+7Iv6Nsei9tzRquaKsnvf6bfp/ajwtRPsp5n9ZXvc2v61ubWL2sbg1TL1PPvTzXfybs11z7vHyiPVEeEep1oP1cuV3LlVy5VVXXVMzVVVPMzM+uZRygACE92eOeAQJlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACYQmAAknyBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOXo+pZ+j6pjappeXew83FuRdsX7VXdrt1xPMTEtjfZb664Z1T0GjS9Uu2sXduFaj53j/kxk0x4fLWvbE/nU/mz7piWtl2e1df1ba+4cLX9DzLmHqOFdi7YvUedNX2euJjmJifCYmYBuCGJOzX1p0jq1tj0vksLceFREajgxPh7Iu2+fO3M/fTPhPqmctgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAx51f6x7F6X4M17i1SmvUKqO9Y03G4uZN32ejz6MfrVTEAyGwT1v7Tex+n3y+l6Tcp3Jr9HNM42Lcj5GxV/i3Y5iJifzaeZ9vCp3WntK7+6h15Gn4mVVt3QbnNPzHCuTFd2n2XbvhVVzHnEcU+6WEZnkHu+rPVne3U3UpyNzatcrxaa+9YwLPNGNY/Zo9c/rVcz73hAAAAIiZe/6R9IN89TtRpsbb0muMKKu7e1HIibeLZ9vNfHpT+rTzPuXn6JdmvYnTumxqObYp3Fr9HFXz3MtxNu1V/hWp5in9qeavfHkCp/RLsy763/XY1HVbFzbmg18VfOsu3MXr1P+FaniZ/aq4j2crkaF2e+lukbFzdp2tu2r9rPsfJZWbf4ryrkx4xXFyfyZifGIp4iJjyZXAaruvfSfXek28a9I1KKsnTsjvXNN1CKOKMm3E/5V08xFVPq5ifKYmcdts3V7YGi9StjZ219at0xTep72NkRTE14t6InuXafvE+ceuJmPW1a794mrdiTc1uKp0re2kZP6MZGLcs8/fE1PGa92Rur2n96cTF0jVKY8pxc+ImfuuRSCv499uPox1T2/NU6nsXXKLdPPNyzjTeo/mt96Hh8rFycW7NnKsXbFyPCaLlE01R90g+IAAnwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Dual Performance" style="height:44px;width:auto;mix-blend-mode:screen;" />
   </div>
   <div class="logo">Dual <span>Performance</span></div>
   <div class="header-tag">Onboarding</div>
 </header>
+
 <!-- WELCOME -->
 <div id="welcomeSection">
   <div class="hero">
-    <div class="hero-eyebrow">Athlete Onboarding Form</div>
+    <div class="hero-eyebrow">Athlete Onboarding</div>
     <div class="hero-title">Let's build your program.</div>
-    <div class="hero-sub">This takes around 10 minutes. Your answers let us build every week of your 12-week program specifically around you. There are no wrong answers - just be honest.</div>
+    <div class="hero-sub">Two steps to get started — book your onboarding call first, then complete the intake form so we can build your program around you.</div>
   </div>
   <div class="welcome-screen">
     <div class="welcome-card">
-      <p><strong>What happens after you complete this?</strong></p>
-      <p>We'll review everything you've shared and have your first week of training and nutrition ready before your program starts.</p>
-      <p>Every answer matters. The more specific you are, the more precisely we can build around your schedule, your body, and your mindset - not a template.</p>
-      <p>If we need anything else, we'll reach out via Discord.</p>
+      <p><strong>Here's how it works</strong></p>
+      <p>First, lock in your onboarding call — this is where we meet, go over your goals, and kick things off. Then you'll complete the intake form so we have everything we need to build your first week of training and nutrition.</p>
+      <p>Every answer matters. The more specific you are, the more precisely we can build around your schedule, your body, and your mindset — not a template.</p>
       <div class="welcome-meta">
-        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>34 Questions</div>
-        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>~10 Minutes</div>
-        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>No Wrong Answers</div>
+        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>Step 1: Book Call</div>
+        <div class="welcome-meta-item"><div class="welcome-meta-dot"></div>Step 2: Intake Form (~10 min)</div>
       </div>
     </div>
-    <button class="btn-start" onclick="startForm()">Start Onboarding →</button>
+    <button class="btn-start" onclick="showBooking()">Get Started →</button>
   </div>
 </div>
+
+<!-- BOOKING SCREEN -->
+<div class="booking-screen" id="bookingSection">
+  <div class="booking-hero">
+    <div class="booking-step-badge">
+      <div class="booking-step-badge-dot"></div>
+      Step 1 of 2
+    </div>
+    <div class="booking-title">Book your onboarding call.</div>
+    <div class="booking-sub">Pick a time that works for you below. Once you've booked, hit the button to continue to your intake form.</div>
+  </div>
+
+  <div class="calendly-container">
+    <div class="calendly-inline-widget"
+      data-url="https://calendly.com/dualperformanceka/dual-performance-onboarding-meeting?background_color=27272a&text_color=fafaf9&primary_color=ef4444"
+      style="min-width:320px;height:700px;">
+    </div>
+  </div>
+
+  <div class="booking-confirm-area">
+    <div class="booking-confirm-text">
+      <div class="booking-confirm-label">All booked?</div>
+      <p>Once you've selected a time and confirmed in the calendar above, continue to the intake form.</p>
+    </div>
+    <button class="btn-booked" onclick="startForm()">I've Booked — Continue →</button>
+  </div>
+
+  <span class="booking-back-link" onclick="showWelcome()">← Back to start</span>
+</div>
+
 <!-- FORM -->
 <div id="formSection" style="display:none;">
+  <div style="max-width:680px;margin:0 auto;padding:32px 24px 0;">
+    <div class="booking-step-badge">
+      <div class="booking-step-badge-dot"></div>
+      Step 2 of 2 — Intake Form
+    </div>
+  </div>
   <div class="progress-wrap">
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progressBar"></div>
     </div>
-    <div class="progress-label" id="progressLabel">Question 1 of 38</div>
+    <div class="progress-label" id="progressLabel">Question 1 of 34</div>
   </div>
   <div class="form-wrap">
     <div class="step active" id="currentStep"></div>
   </div>
 </div>
+
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
   <div class="success-icon">
@@ -563,22 +710,35 @@
     </svg>
   </div>
   <div class="success-title">You're all set.</div>
-  <div class="success-sub">We'll review everything you've shared and have your first week ready before your program starts. Welcome to Dual Performance.</div>
-  <div class="success-divider"></div>
-  <div class="success-book-label">One more thing</div>
-  <div class="success-book-heading">Book your onboarding call</div>
-  <div class="success-book-sub">Go ahead and lock in your call now too — while we get your program built, grab your spot. Spaces fill fast.</div>
-  <a class="btn-book" href="https://calendly.com/dualperformanceka/dual-performance-onboarding-meeting" target="_blank" rel="noopener">Book Your Call →</a>
+  <div class="success-sub">Your call is booked and we have everything we need. We'll have your first week of training and nutrition ready before your program starts. Welcome to Dual Performance.</div>
+  <div class="success-checklist">
+    <div class="success-check-item">
+      <div class="success-check-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      Onboarding call booked
+    </div>
+    <div class="success-check-item">
+      <div class="success-check-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      Intake form submitted
+    </div>
+    <div class="success-check-item">
+      <div class="success-check-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      Program build in progress
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
 // ── CONFIG ─────────────────────────────────────────────────────────────
 const WEBHOOK = 'https://hook.eu1.make.com/hbswo1j1qjgkr6cehaoi8amomg9crm23';
 const DISCORD_WEBHOOK = ''; // Paste your Discord webhook URL here
 // ── QUESTION DATA ──────────────────────────────────────────────────────
-// Types: text | long | date | choice | multi | scale | yn
-//        dual_text   - two labeled text inputs on one screen
-//        choice_scale - choice group + scale on one screen
-//        dual_choice  - two choice groups on one screen
 const QUESTIONS = [
   // ── ABOUT YOU ──────────────────────────────────────────────────────
   {
@@ -693,6 +853,17 @@ const QUESTIONS = [
 let answers = {};
 let visibleQ = [];
 let currentIdx = 0;
+// ── SCREEN TRANSITIONS ────────────────────────────────────────────────
+function showWelcome() {
+  document.getElementById('welcomeSection').style.display = 'block';
+  document.getElementById('bookingSection').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function showBooking() {
+  document.getElementById('welcomeSection').style.display = 'none';
+  document.getElementById('bookingSection').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 // ── VISIBLE QUESTION LIST ─────────────────────────────────────────────
 function buildVisible() {
   visibleQ = QUESTIONS.filter(q => {
@@ -700,9 +871,9 @@ function buildVisible() {
     return answers[q.showIf.id] === q.showIf.val;
   });
 }
-// ── START ──────────────────────────────────────────────────────────────
+// ── START FORM ─────────────────────────────────────────────────────────
 function startForm() {
-  document.getElementById('welcomeSection').style.display = 'none';
+  document.getElementById('bookingSection').style.display = 'none';
   document.getElementById('formSection').style.display = 'block';
   buildVisible();
   renderQuestion();
@@ -827,17 +998,10 @@ function renderQuestion() {
   const container = document.getElementById('currentStep');
   container.className = 'step active';
   container.innerHTML = inner;
-  // Focus first input
   if (['text','date','long'].includes(q.type)) {
-    setTimeout(() => {
-      const el = document.getElementById('qInput');
-      if (el) el.focus();
-    }, 100);
+    setTimeout(() => { const el = document.getElementById('qInput'); if (el) el.focus(); }, 100);
   } else if (q.type === 'dual_text') {
-    setTimeout(() => {
-      const el = document.querySelector('.dual-input');
-      if (el) el.focus();
-    }, 100);
+    setTimeout(() => { const el = document.querySelector('.dual-input'); if (el) el.focus(); }, 100);
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -872,11 +1036,9 @@ function pickYN(el, val) {
   el.classList.add('selected');
   answers[visibleQ[currentIdx].id] = val;
   clearErr();
-  // Rebuild visible after yes/no (Q27 affects Q28)
   buildVisible();
   setTimeout(goNext, 220);
 }
-// ── MULTI-FIELD PICKERS ───────────────────────────────────────────────
 function pickChoiceField(el, val, fieldId) {
   const group = el.closest('.choices');
   if (group) group.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
@@ -898,7 +1060,6 @@ function getInputVal() {
 }
 function validate() {
   const q = visibleQ[currentIdx];
-  // ── Composite types ──────────────────────────────────────────────
   if (q.type === 'dual_text') {
     document.querySelectorAll('.dual-input').forEach(inp => {
       const raw = inp.dataset.fieldId;
@@ -910,7 +1071,6 @@ function validate() {
   if (q.type === 'choice_scale' || q.type === 'dual_choice') {
     return q.fields.every(f => !f.req || (answers[f.id] !== undefined && answers[f.id] !== null && answers[f.id] !== ''));
   }
-  // ── Single-value types ───────────────────────────────────────────
   if (!q.req) return true;
   if (['text','long','date'].includes(q.type)) {
     const val = getInputVal();
@@ -918,15 +1078,9 @@ function validate() {
     answers[q.id] = val;
     return true;
   }
-  if (q.type === 'choice' || q.type === 'yn') {
-    return !!answers[q.id];
-  }
-  if (q.type === 'multi') {
-    return !!(answers[q.id] && answers[q.id].length > 0);
-  }
-  if (q.type === 'scale') {
-    return answers[q.id] !== undefined;
-  }
+  if (q.type === 'choice' || q.type === 'yn') return !!answers[q.id];
+  if (q.type === 'multi') return !!(answers[q.id] && answers[q.id].length > 0);
+  if (q.type === 'scale') return answers[q.id] !== undefined;
   return true;
 }
 function saveTextInput() {
@@ -1023,24 +1177,19 @@ async function submitForm() {
         body: JSON.stringify(payload)
       });
     }
-  } catch(err) {
-    console.error('Webhook error:', err);
-  }
+  } catch(err) { console.error('Webhook error:', err); }
   try {
     if (DISCORD_WEBHOOK) {
       const name = answers[1] || answers['1'] || 'New athlete';
-      const sport = answers[3] || answers['3'] || '';
       const goal = answers[9] || answers['9'] || '';
       const discordPayload = {
-        embeds: [
-          {
-            title: "Dual Performance",
-            description: `**New application received**\n\n**Athlete:** ${name}${sport ? `\n**Sport:** ${sport}` : ''}${goal ? `\n**Goal:** ${goal}` : ''}\n\n_Built for high-performing athletes. Run faster. Lift stronger. Stay consistent._`,
-            color: 16777215,
-            footer: { text: "Dual Performance" },
-            timestamp: new Date().toISOString()
-          }
-        ]
+        embeds: [{
+          title: "Dual Performance",
+          description: `**New application received**\n\n**Athlete:** ${name}${goal ? `\n**Goal:** ${goal}` : ''}\n\n_Built for high-performing athletes. Run faster. Lift stronger. Stay consistent._`,
+          color: 16777215,
+          footer: { text: "Dual Performance" },
+          timestamp: new Date().toISOString()
+        }]
       };
       await fetch(DISCORD_WEBHOOK, {
         method: 'POST',
@@ -1048,9 +1197,7 @@ async function submitForm() {
         body: JSON.stringify(discordPayload)
       });
     }
-  } catch(err) {
-    console.error('Discord webhook error:', err);
-  }
+  } catch(err) { console.error('Discord webhook error:', err); }
   document.getElementById('formSection').style.display = 'none';
   document.getElementById('successScreen').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
